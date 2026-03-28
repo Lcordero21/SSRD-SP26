@@ -19,7 +19,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-    <form>
+    <form action = "check_account.php" method = "post">
         <div class="mb-3">
             <label for="InputEmail" class="form-label">Email address</label>
             <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp">
@@ -42,8 +42,6 @@
 </body>
 </html>
 
-<php>
+<?php
 
-
-
-</php>
+?>
