@@ -47,7 +47,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 }
 
 if (isset($DUser)&& isset($DPassword)) {
-    $sql = "SELECT * from users where email = ?";
+    $sql = "SELECT * from users WHERE email = ?";
     $statement = $pdo -> prepare($sql);
     $statement -> execute([$DUser]);
     $user = $statement -> fetch(PDO::FETCH_ASSOC);
@@ -88,13 +88,17 @@ if (isset($DUser)&& isset($DPassword)) {
     <form action = "log_in_page.php" method = "POST">
         <div class="mb-3">
             <label for="InputEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" name= "user">
+            <span><?php if(isset($errLogin) && $errLogin !=""){print(errMessage($errLogin));}?></span><br/>
+                      <span><?php if(isset($errUser) && $errUser !=""){print(errMessage($errUser));}?></span><br/>
+            <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" name= "user" required>
             <div id="emailHelp" class="form-text">Please Enter Your Willamette University Email!</div>
         </div>
 
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" name = "password">
+            <span><?php if(isset($errLogin) && $errLogin !=""){print(errMessage($errLogin));}?></span><br/>
+            <span><?php if(isset($errPassword) && $errPassword !=""){print(errMessage($errPassword));}?></span><br/>
+            <input type="password" class="form-control" id="exampleInputPassword1" name = "password" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>    
