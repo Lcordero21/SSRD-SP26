@@ -51,8 +51,16 @@ if (isset($DUser)&& isset($DPassword)) {
 
     if ($user && password_verify($DPassword, $user['password'])) {
         $_SESSION['user'] = $user['email'];
-        header("Location:http://localhost/SSRD%20SP26/Staff_end/homepage.php");
-        exit();
+        if ($user['is_admin'] == 1){
+            $_SESSION['admin'] = true;
+            header("Location:http://localhost/SSRD%20SP26/Staff_end/homepage.php");
+            exit();
+        }
+        elif($user['is_admin'] == 0){
+            $_SESSION['admin'] = false;
+            header("Location:http://localhost/SSRD%20SP26/Student_end/homepage.php");
+            exit();
+        }
     } else {
         $errLogin = "Invalid email or password.";
         }
