@@ -1,5 +1,3 @@
-<!-- STUDENT LOG-IN -->
-
 <?php 
 ini_set('display_errors', 1); 
 ini_set('display_startup_errors', 1); 
@@ -55,6 +53,7 @@ if (isset($DUser)&& isset($DPassword)) {
     if ($user && password_verify($DPassword, $user['password'])) {
         $_SESSION['user'] = $user['email'];
         header("Location: Student_end/homepage.php");
+        exit();
     } else {
         $errLogin = "Invalid email or password.";
         }
@@ -89,18 +88,16 @@ if (isset($DUser)&& isset($DPassword)) {
         <div class="mb-3">
             <label for="InputEmail" class="form-label">Email address</label>
             <span><?php if(isset($errLogin) && $errLogin !=""){print(errMessage($errLogin));}?></span><br/>
-                      <span><?php if(isset($errUser) && $errUser !=""){print(errMessage($errUser));}?></span><br/>
             <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" name= "user" required>
             <div id="emailHelp" class="form-text">Please Enter Your Willamette University Email!</div>
         </div>
 
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <span><?php if(isset($errLogin) && $errLogin !=""){print(errMessage($errLogin));}?></span><br/>
             <span><?php if(isset($errPassword) && $errPassword !=""){print(errMessage($errPassword));}?></span><br/>
             <input type="password" class="form-control" id="exampleInputPassword1" name = "password" required>
         </div>
-
+        <span><?php if(isset($errUser) && $errUser !=""){print(errMessage($errUser));}?></span><br/>
         <button type="submit" class="btn btn-primary">Submit</button>    
     </form>
                     </div>
