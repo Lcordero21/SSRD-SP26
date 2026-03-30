@@ -50,14 +50,9 @@ if (isset($DUser)&& isset($DPassword)) {
     $statement -> execute([$DUser]);
     $user = $statement -> fetch(PDO::FETCH_ASSOC);
 
-    var_dump($user);
-    var_dump(password_verify($DPassword, $user['password'] ?? ''));
-    $hash = '$2y$10$92IXUNpkj0fDZcXHJPvcIZwiDhlJnKzQW07gY8g669M7C344V4lqG';
-    var_dump(password_verify("password", $hash));
-
     if ($user && password_verify($DPassword, $user['password'])) {
         $_SESSION['user'] = $user['email'];
-        header("Location: Student_end/homepage.php");
+        header("Location:http://localhost/SSRD%20SP26/Student_end/homepage.php");
         exit();
     } else {
         $errLogin = "Invalid email or password.";
