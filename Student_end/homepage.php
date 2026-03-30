@@ -22,17 +22,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="homepage.php">Home</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Appointments
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Book an Appointment</a></li>
-            <li><a class="dropdown-item" href="#">Upcoming Appointments</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Past Appointments</a></li>
+            <li><a class="dropdown-item" href="booking_page.php">Book an Appointment</a></li>
+            <li><a class="dropdown-item" href="upcoming_appointments.php">Upcoming Appointments</a></li>
+            <li><a class="dropdown-item" href="past_appointments.php">Past Appointments</a></li>
           </ul>
         </li>
       </ul>
@@ -50,7 +49,7 @@
           <div class="card-body">
             <h5 class="card-title">Book an Appointment</h5>
             <p class="card-text">Look at available appointments!</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="booking_page.php" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
       </div>
@@ -60,7 +59,7 @@
           <div class="card-body">
             <h5 class="card-title">Upcoming Appointments</h5>
             <p class="card-text">Look at upcoming appointments!</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="upcoming_appointments.php" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
       </div>
@@ -70,7 +69,7 @@
           <div class="card-body">
             <h5 class="card-title">Past Appointments</h5>
             <p class="card-text">Look at past appointments and notes!</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="past_appointments.php" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
       </div>
