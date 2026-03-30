@@ -1,0 +1,16 @@
+[class="col-md-4"]{
+    padding: 20px;
+    background-color: lightgray;
+    box-shadow: 4px 2px 4px 2px #808080;
+    max-width:33%;
+    margin: 10px;
+}
+
+[class="btn btn-primary"]{
+    background-color: red;
+}
+
+[class="btn btn-primary"]:hover{
+    background-color: darkred;
+    font-style: italic;
+}

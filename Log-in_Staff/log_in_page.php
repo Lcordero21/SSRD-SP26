@@ -3,7 +3,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1); 
 error_reporting(E_ALL);
 session_start();
-//include 'data.inc.php';
 require_once 'connect_db.php';
 
 
@@ -45,14 +44,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 }
 
 if (isset($DUser)&& isset($DPassword)) {
-    $sql = "SELECT * from users WHERE email = ?";
+    $sql = "SELECT * from staff WHERE email = ?";
     $statement = $pdo -> prepare($sql);
     $statement -> execute([$DUser]);
     $user = $statement -> fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($DPassword, $user['password'])) {
         $_SESSION['user'] = $user['email'];
-        header("Location:http://localhost/SSRD%20SP26/Student_end/homepage.php");
+        header("Location:http://localhost/SSRD%20SP26/Staff_end/homepage.php");
         exit();
     } else {
         $errLogin = "Invalid email or password.";
