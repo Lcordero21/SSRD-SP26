@@ -40,7 +40,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
       $errPassword = "The password cannot be empty";
     }
     else{
-      $DPassword = $password;
+      $DPassword = trim($password);
     }
 }
 
@@ -49,6 +49,11 @@ if (isset($DUser)&& isset($DPassword)) {
     $statement = $pdo -> prepare($sql);
     $statement -> execute([$DUser]);
     $user = $statement -> fetch(PDO::FETCH_ASSOC);
+
+    var_dump($user);
+    var_dump(password_verify($DPassword, $user['password'] ?? ''));
+    $hash = '$2y$10$92IXUNpkj0fDZcXHJPvcIZwiDhlJnKzQW07gY8g669M7C344V4lqG';
+    var_dump(password_verify("password", $hash));
 
     if ($user && password_verify($DPassword, $user['password'])) {
         $_SESSION['user'] = $user['email'];
