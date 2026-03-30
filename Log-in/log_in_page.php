@@ -44,19 +44,21 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 }
 
 if (isset($DUser)&& isset($DPassword)) {
-    $sql = "SELECT * from staff WHERE email = ?";
+    $sql = "SELECT * from users WHERE email = ?";
     $statement = $pdo -> prepare($sql);
     $statement -> execute([$DUser]);
     $user = $statement -> fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($DPassword, $user['password'])) {
         $_SESSION['user'] = $user['email'];
-        if ($user['is_admin'] == 1){
+        
+       //DOUBLE CHECK THIS PORTION 
+        if ($user['is_admin'] == true){
             $_SESSION['admin'] = true;
             header("Location:http://localhost/SSRD%20SP26/Staff_end/homepage.php");
             exit();
         }
-        elif($user['is_admin'] == 0){
+        else{
             $_SESSION['admin'] = false;
             header("Location:http://localhost/SSRD%20SP26/Student_end/homepage.php");
             exit();
