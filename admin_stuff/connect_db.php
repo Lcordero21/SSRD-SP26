@@ -1,8 +1,4 @@
 <?php
-//All taken from in-class code, I just changed the db name and added the charset part (per claude and copilot's suggestion), 
-// which according to them is important for UTF data like emojis and stuff, 
-// which might be used in notes section of appointments..
-
 //modify these variables for your installation
 $connectionString = "mysql:host=localhost;dbname=final_project";
 
@@ -20,4 +16,3 @@ try{
         die($e.("Error message"));
     }
 ?>
-

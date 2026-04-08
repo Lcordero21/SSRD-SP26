@@ -3,6 +3,8 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 include 'includes/travel-config.inc.php';
 
+// IN CLASS CODE (for reference only, not part of the project)
+
 # Function to generate data
 function generateDate($table, $con, $rowID, $rowValue){
   $sql = "SELECT * FROM $table";

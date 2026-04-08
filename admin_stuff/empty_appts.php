@@ -7,6 +7,8 @@ require_once 'connect_db.php';
 $startHour = 8; // 8am
 $endHour = 17; // 5pm
 $daysAhead = 30;
+$staffEmail = 'admin@willamette.edu'; //This is my admin email in this test website, future work though: will make it more secure 
+
 
 
 for ($i = 0; $i < $daysAhead; $i++) {
@@ -16,17 +18,19 @@ for ($i = 0; $i < $daysAhead; $i++) {
     if ($dayOfWeek >= 6) continue;
 
     //creates a slot for each hour, excluding the lunch break (at 12pm)
-    for ($hour = $startHour; $hour < $endHour && $hour != 12; $hour++) {
+    for ($hour = $startHour; $hour < $endHour; $hour++) {
         $startTime = sprintf('%02d:00:00', $hour);
         $endTime   = sprintf('%02d:00:00', $hour + 1);
 
-        // Checks to make sure it inst duplicatting existing slots
-        $checkDuplicate = $pdo->prepare("SELECT id FROM slots WHERE 'date' = ? AND start_time = ?");
+        // checks to make sure it inst duplicatting existing slots
+        $checkDuplicate = $pdo->prepare("SELECT id FROM slots WHERE slot_date = ? AND start_time = ? AND start_time != '12:00:00'");
         $checkDuplicate->execute([$date, $startTime]);
 
         if (!$checkDuplicate->fetch()) {
-            $new = $pdo->prepare("INSERT INTO slots ('date', start_time, end_time) VALUES (?, ?, ?)");
-            $new->execute([$date, $startTime, $endTime]);
+            $new = $pdo->prepare("INSERT INTO slots (staff_id, slot_date, start_time, end_time) VALUES (?, ?, ?, ?)");
+            $new->execute([$staffEmail, $date, $startTime, $endTime]);
+            echo "Created slot for $date from $startTime to $endTime\n";
+            //echo is for debugging stuff, I'm not going to comment it out in the final version for admin stuff sake
         }
     }
 }

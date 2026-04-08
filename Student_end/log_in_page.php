@@ -51,9 +51,10 @@ if (isset($DUser)&& isset($DPassword)) {
 
     if ($user && password_verify($DPassword, $user['password'])) {
         $_SESSION['user'] = $user['email'];
+        $_SESSION['name'] = $user['first'];
         
        //DOUBLE CHECK THIS PORTION 
-        if ($user['is_admin'] == true){
+        if ($user['admin'] == true){
             $_SESSION['admin'] = true;
             header("Location:http://localhost/SSRD%20SP26/Staff_end/homepage.php");
             exit();
