@@ -35,6 +35,9 @@
             <li><a class="dropdown-item" href="search_appointment.php">Search for Appointment</a></li>
           </ul>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="logging_out.php">Log Out</a>
+        </li>
       </ul>
     </div>
   </div>

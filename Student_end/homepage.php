@@ -1,5 +1,11 @@
 
-
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: ../Student_end/log_in_page.php");
+    exit();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,10 +35,13 @@
             Appointments
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="booking_page.php">Book an Appointment</a></li>
-            <li><a class="dropdown-item" href="upcoming_appointments.php">Upcoming Appointments</a></li>
-            <li><a class="dropdown-item" href="past_appointments.php">Past Appointments</a></li>
+            <li><a class="dropdown-item" href="../booking_page.php">Book an Appointment</a></li>
+            <li><a class="dropdown-item" href="../upcoming_appointments.php">Upcoming Appointments</a></li>
+            <li><a class="dropdown-item" href="../past_appointments.php">Past Appointments</a></li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="logging_out.php">Log Out</a>
         </li>
       </ul>
     </div>

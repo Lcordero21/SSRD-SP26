@@ -56,4 +56,33 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (1,'admin@willamette.edu','$2y$10$DikEmuYHZMt5rm/Je70rtuxZMeUsNINyDQ0dOXW1DHswO8E4Fud2S',1,'Admin','User'),(2,'john.doe@willamette.edu','$2y$10$DikEmuYHZMt5rm/Je70rtuxZMeUsNINyDQ0dOXW1DHswO8E4Fud2S',0,'John','Doe');
 UNLOCK TABLES;
 
+CREATE TABLE `appointments` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `staff_id` int(11) NOT NULL,
+    `student_id` int(11) NOT NULL,
+    'slot_id' int(11) NOT NULL,
+    `booked` datetime NOT NULL,
+    `description` text,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`staff_id`) REFERENCES `users`(`email`),
+    FOREIGN KEY (`student_id`) REFERENCES `users`(`email`),
+    FOREIGN KEY (`slot_id`) REFERENCES `slots`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `appointments` WRITE;
+INSERT INTO `appointments` VALUES (1,1,2,'2025-30-03','10:00:00','Initial advising appointment');
+UNLOCK TABLES;
+
+CREATE TABLE 'slots' (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `staff_id` int(11) NOT NULL,
+    `date` date NOT NULL,
+    `time` time NOT NULL,
+    `is_booked` boolean NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`staff_id`) REFERENCES `users`(`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `slots` WRITE;
+INSERT INTO `slots` VALUES (1,1,'2025-30-03','10:00:00');
+UNLOCK TABLES;
