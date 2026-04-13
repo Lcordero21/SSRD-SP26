@@ -50,7 +50,7 @@ require_once 'connect_db.php';
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="booking_page.php">Add New Appointment</a></li>
-            <li><a class="dropdown-item" href="adjust_appointment.php">Adjust Appointment</a></li>
+            <li><a class="dropdown-item" href="upcoming_appointment.php">View Upcoming Appointments</a></li>
             <li><a class="dropdown-item" href="search_appointment.php">Search for Appointment</a></li>
           </ul>
         </li>
@@ -99,6 +99,7 @@ require_once 'connect_db.php';
               <td><?=date('g:ia', strtotime($row['start_time'])) ?> - <?= date('g:ia', strtotime($row['end_time'])) ?></td>
               <td><?= htmlspecialchars($row['first']) ?> <?= htmlspecialchars($row['last']) ?></td>
               <td><?= htmlspecialchars($row['description']) ?></td>
+              <!-- Fix the following -->
               <td><a href="adjust_appointment.php?slot_id=<?= $row['slot_id'] ?>" class="btn btn-outline-primary">Edit Note</a></td>
               <td><a href="cancel_appointment.php?slot_id=<?= $row['slot_id'] ?>" class="btn btn-outline-danger" onclick="return confirm('Cancel this appointment?')">Cancel</a></td>
 

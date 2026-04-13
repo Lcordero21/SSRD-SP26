@@ -67,8 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['first_name']) && isse
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="booking_page.php">Add New Appointment</a></li>
-            <li><a class="dropdown-item" href="adjust_appointment.php">Adjust Appointment</a></li>
-            <li><hr class="dropdown-divider" ></hr></li>
+            <li><a class="dropdown-item" href="upcoming_appointment.php">View Upcoming Appointments</a></li>
             <li><a class="dropdown-item" href="search_appointment.php">Search for Appointment</a></li>
           </ul>
         </li>
