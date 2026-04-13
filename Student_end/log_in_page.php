@@ -52,6 +52,7 @@ if (isset($DUser)&& isset($DPassword)) {
     if ($user && password_verify($DPassword, $user['password'])) {
         $_SESSION['user'] = $user['email'];
         $_SESSION['name'] = $user['first'];
+        $_SESSION['admin'] = $user['admin'];
         
        //DOUBLE CHECK THIS PORTION 
         if ($user['admin'] == true){
@@ -86,6 +87,11 @@ if (isset($DUser)&& isset($DPassword)) {
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img class = "compass_logo" src="../images/compass-4c1.jpg"/></a>
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Student Log In</a>
+                </li>
+            </ul>
         </div>
     </nav>
 

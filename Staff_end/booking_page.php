@@ -1,17 +1,24 @@
+
 <?php
 session_start();
-if (!isset($_SESSION['user'])) {
+if (!isset($_SESSION['user']) || $_SESSION['admin'] == 0) {
     header("Location: log_in_page.php");
     exit();
 }
+
+$userEmail = $_SESSION['user'];
+$userName = $_SESSION['name'];
+$message = "";
+
 require_once 'connect_db.php';
 
 $userEmail = $_SESSION['user'];
 $userName = $_SESSION['name'];
 $message = "";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['slot_id'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['slot_id']) && isset($_POST['student_email'])) {
     $slotId = (int)$_POST['slot_id'];
+    $studentEmail = $_POST['student_email'];
 
     // double checks slot is still available (per the suggestion of claude)
     $sql = "SELECT * FROM slots WHERE id = ? AND is_booked = 0";
@@ -19,20 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['slot_id'])) {
     $check->execute([$slotId]);
     $slot = $check->fetch(PDO::FETCH_ASSOC);
 
-    // checks that the student doesn't already have a future booking
-
-    $sql = "SELECT a.id FROM appointments a
-            JOIN slots s ON a.slot_id = s.id
-            WHERE a.student_id = ? AND s.slot_date >= CURDATE()";
-    $existing = $pdo->prepare($sql);
-    $existing->execute([$userEmail]);
-    $hasBooking = $existing->fetch();
-
-    if (!$slot) {
-        $message = "Sorry, that slot was taken. Please choose another.";
-    } elseif ($hasBooking) {
-        $message = "You already have an upcoming appointment. Cancel your current one or call to reschedule if you need to change it.";
-    } else {
 
     //suggested by claude to double check the slot is still available right before booking  
         $pdo->beginTransaction();
@@ -43,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['slot_id'])) {
         try {
             $sql = "INSERT INTO appointments (slot_id, student_id, staff_id, booked) VALUES (?, ?, ?, NOW())";
             $pdo->prepare($sql)
-                ->execute([$slotId, $userEmail, $slotData['staff_id']]);
+                ->execute([$slotId, $studentEmail, $slotData['staff_id']]);
             $sql = "UPDATE slots SET is_booked = 1 WHERE id = ?";
             $pdo->prepare($sql)
                  ->execute([$slotId]);
@@ -53,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['slot_id'])) {
             $pdo->rollBack();
             $message = "Something got funky. Please try again!";
         }
-    }
 }
+
 
 //for cancelling an appointment
 if (isset($_GET['cancel'])) {
@@ -130,7 +123,8 @@ foreach ($allSlots as $slot) {
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="booking_page.php">Book an Appointment</a></li>
-            <li><a class="dropdown-item" href="past_appointments.php">Past Appointments</a></li>
+            <li><a class="dropdown-item" href="search_appointment.php">Search Appointments</a></li>
+            <li><a class="dropdown-item" href="upcoming_appointment.php">Upcoming Appointments</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -158,24 +152,7 @@ foreach ($allSlots as $slot) {
     <?php endif; ?>
 
     <!-- Show existing booking -->
-    <?php if ($myBooking): ?>
-        <div class="card mb-4 border-primary">
-            <div class="card-body">
-                <h5 class="card-title">Your Upcoming Appointment</h5>
-                 <!-- following was suggested by claude to make the date and time format more user friendly. I also added a border/card around the existing booking  -->
-                <p>
-                    <strong>Date:</strong> <?= date('l, F j Y', strtotime($myBooking['slot_date'])) ?><br>
-                    <strong>Time:</strong> <?= date('g:ia', strtotime($myBooking['start_time'])) ?> 
-                                         - <?= date('g:ia', strtotime($myBooking['end_time'])) ?>
-                </p>
-                <a href="?cancel=<?= $myBooking['slot_id'] ?>" 
-                   class="btn btn-outline-danger"
-                   onclick="return confirm('Cancel this appointment?')">
-                    Cancel Appointment
-                </a>
-            </div>
-        </div>
-    <?php endif; ?>
+
 
     <!-- Available slots -->
     <?php if (!$myBooking): ?>
@@ -187,7 +164,7 @@ foreach ($allSlots as $slot) {
                 <div class="d-flex flex-wrap gap-2 mb-2">
                     <?php foreach ($slots as $slot): ?>
                         <form method="POST">
-                            <input type="hidden" name="slot_id" value="<?= $slot['id'] ?>">
+                            <input type="hidden" name="slot_id" value="<?= $slot['id'] ?>"> // ask for student email and check if email exists in database
                             <button type="submit" class="btn btn-danger">
                                 <?= date('g:ia', strtotime($slot['start_time'])) ?> 
                                 - <?= date('g:ia', strtotime($slot['end_time'])) ?>

@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-if (!isset($_SESSION['user'])) {
+if (!isset($_SESSION['user']) || $_SESSION['admin'] == true) { 
     header("Location: log_in_page.php");
     exit();
 }
@@ -65,7 +65,7 @@ $userEmail = $_SESSION['user'];
     <?php
     // this will get the past appts for the user and organize it by most recent first, I also include notes per copilots suggestion
     // format and stuff pulled from ch12 project we did in class and a bit from the booking page for time formatting stuff 
-        $sql = "SELECT s.slot_date, s.start_time, s.end_time, u.first, a.description
+        $sql = "SELECT s.slot_date, s.start_time, s.end_time, u.first, u.last, a.description
                 FROM appointments a
                 JOIN slots s ON a.slot_id = s.id
                 JOIN users u ON s.staff_id = u.email
@@ -95,8 +95,8 @@ $userEmail = $_SESSION['user'];
       <td><?= date('l, F j Y', strtotime($row['slot_date']))?></td>
       <td><?=date('g:ia', strtotime($row['start_time'])) ?> 
             - <?= date('g:ia', strtotime($row['end_time'])) ?></td>
-      <td><?=print($row['first']) ?></td> <!--Theres a 1 at the end, maybe html special chars can fix it? idk --> 
-      <td><?=print($row['description']) ?></td> <!--Theres also a 1 at the end of this..-->
+              <td><?= htmlspecialchars($row['first']) ?> <?= htmlspecialchars($row['last']) ?></td>
+              <td><?= htmlspecialchars($row['description']) ?></td>
     </tr>
     <?php
       }

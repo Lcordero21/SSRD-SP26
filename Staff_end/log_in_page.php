@@ -1,8 +1,13 @@
-<?php 
+
+<?php
 ini_set('display_errors', 1); 
 ini_set('display_startup_errors', 1); 
 error_reporting(E_ALL);
 session_start();
+require_once 'connect_db.php';
+
+$message = "";
+
 require_once 'connect_db.php';
 
 
@@ -44,14 +49,18 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 }
 
 if (isset($DUser)&& isset($DPassword)) {
-    $sql = "SELECT * from students WHERE email = ?";
+    $sql = "SELECT * from users WHERE email = ?";
     $statement = $pdo -> prepare($sql);
     $statement -> execute([$DUser]);
     $user = $statement -> fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($DPassword, $user['password'])) {
         $_SESSION['user'] = $user['email'];
-        header("Location:http://localhost/SSRD%20SP26/Student_end/homepage.php");
+        $_SESSION['name'] = $user['first'];
+        $_SESSION['admin'] = $user['admin'];
+        
+       //DOUBLE CHECK THIS PORTION 
+        header("Location:http://localhost/SSRD%20SP26/Staff_end/homepage.php");
         exit();
     } else {
         $errLogin = "Invalid email or password.";
@@ -76,6 +85,11 @@ if (isset($DUser)&& isset($DPassword)) {
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img class = "compass_logo" src="../images/compass-4c1.jpg"/></a>
         </div>
+        <ul>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Staff Log In</a>
+            </li>
+        </ul>
     </nav>
 
     <div class="row">
