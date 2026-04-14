@@ -55,7 +55,7 @@ if (isset($DUser)&& isset($DPassword)) {
         $_SESSION['admin'] = $user['admin'];
         
        //DOUBLE CHECK THIS PORTION 
-        header("Location:http://localhost/SSRD%20SP26/Staff_end/homepage.php");
+        header("Location:http://localhost/SSRD%20SP26/Student_end/homepage.php");
         exit();
     } else {
         $errLogin = "Invalid email or password.";

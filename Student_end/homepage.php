@@ -48,6 +48,7 @@ $message = "";
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="booking_page.php">Book an Appointment</a></li>
             <li><a class="dropdown-item" href="past_appointments.php">Past Appointments</a></li>
+            <li><a class="dropdown-item" href="upcoming_appointment.php">Upcoming Appointments</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -84,6 +85,17 @@ $message = "";
           </div>
         </div>
       </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Upcoming Appointment</h5>
+            <p class="card-text">Look at your upcoming appointments!</p>
+            <a href="upcoming_appointment.php" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </body>

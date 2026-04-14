@@ -42,6 +42,7 @@ $userEmail = $_SESSION['user'];
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="booking_page.php">Book an Appointment</a></li>
             <li><a class="dropdown-item" href="past_appointments.php">Past Appointments</a></li>
+            <li><a class="dropdown-item" href="upcoming_appointment.php">Upcoming Appointments</a></li>
           </ul>
         </li>
         <li class="nav-item">

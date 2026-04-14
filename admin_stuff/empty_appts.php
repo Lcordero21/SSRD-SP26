@@ -11,7 +11,7 @@ $staffEmail = 'admin@willamette.edu'; //This is my admin email in this test webs
 
 
 
-for ($i = 0; $i < $daysAhead; $i++) {
+for ($i = 1; $i < $daysAhead; $i++) {
     $date = date('Y-m-d', strtotime("+$i days"));
     $dayOfWeek = date('N', strtotime($date)); // 1=Mon, 7=Sun
 

@@ -12,10 +12,6 @@ $message = "";
 
 require_once 'connect_db.php';
 
-$userEmail = $_SESSION['user'];
-$userName = $_SESSION['name'];
-$message = "";
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['slot_id']) && isset($_POST['student_email'])) {
     $slotId = (int)$_POST['slot_id'];
     $studentEmail = $_POST['student_email'];
@@ -151,32 +147,34 @@ foreach ($allSlots as $slot) {
         <div class="alert alert-danger"><?= htmlspecialchars($message) ?></div>
     <?php endif; ?>
 
-    <!-- Show existing booking -->
-
-
     <!-- Available slots -->
-    <?php if (!$myBooking): ?>
         <?php if (empty($apptsByDate)): ?>
             <div class="alert alert-warning">No available appointments at this time.</div>
         <?php else: ?>
+
+            <div class="mb-4" style="max-width: 300px;">
+                <label class="form-label">Student Email</label>
+                <input type="email" form="placeholder" name="student_email" 
+                    id="student_email" class="form-control" 
+                    placeholder="Enter Student's Willamette Email Here" required>
+            </div>
+
             <?php foreach ($apptsByDate as $date => $slots): ?>
                 <h5 class="mt-4"><?= date('l, F j Y', strtotime($date)) ?></h5>
-                <div class="d-flex flex-wrap gap-2 mb-2">
+                <div class="d-flex flex-wrap gap-2 mb-2"> <!-- added some styling to make the available slots look nicer per the suggestion of claude -->
                     <?php foreach ($slots as $slot): ?>
-                        <form method="POST">
-                            <input type="hidden" name="slot_id" value="<?= $slot['id'] ?>"> // ask for student email and check if email exists in database
-                            <button type="submit" class="btn btn-danger">
-                                <?= date('g:ia', strtotime($slot['start_time'])) ?> 
-                                - <?= date('g:ia', strtotime($slot['end_time'])) ?>
-                            </button>
-                        </form>
+                    <form method="POST" onsubmit="document.getElementById('hidden_email_<?= $slot['id'] ?>').value = document.getElementById('student_email').value;"> <!-- added an onsubmit function per the suggestion of copilot -->
+                        <input type="hidden" name="slot_id" value="<?= $slot['id'] ?>">
+                        <input type="hidden" name="student_email" id="hidden_email_<?= $slot['id'] ?>">
+                        <button type="submit" class="btn btn-danger">
+                            <?= date('g:ia', strtotime($slot['start_time'])) ?> 
+                            - <?= date('g:ia', strtotime($slot['end_time'])) ?>
+                        </button>
+                    </form>
                     <?php endforeach; ?>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
-    <?php else: ?>
-        <p class="text">Cancel your current appointment to book a different time.</p>
-    <?php endif; ?>
 </div>
 </body>
 </html>

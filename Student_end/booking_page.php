@@ -78,7 +78,8 @@ if (isset($_GET['cancel'])) {
 $sql = "SELECT a.*, s.slot_date, s.start_time, s.end_time 
         FROM appointments AS a
         JOIN slots AS s ON a.slot_id = s.id
-        WHERE a.student_id = ? AND s.slot_date >= CURDATE()";
+        WHERE a.student_id = ? AND s.slot_date >= CURDATE()
+        ORDER BY s.slot_date, s.start_time";
 $myBooking = $pdo->prepare($sql);
 $myBooking->execute([$userEmail]);
 $myBooking = $myBooking->fetch(PDO::FETCH_ASSOC);
@@ -131,6 +132,7 @@ foreach ($allSlots as $slot) {
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="booking_page.php">Book an Appointment</a></li>
             <li><a class="dropdown-item" href="past_appointments.php">Past Appointments</a></li>
+            <li><a class="dropdown-item" href="upcoming_appointment.php">Upcoming Appointments</a></li>
           </ul>
         </li>
         <li class="nav-item">
