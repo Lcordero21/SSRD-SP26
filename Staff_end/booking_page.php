@@ -31,11 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['slot_id']) && isset($
         $slotData = $stmt->fetch(PDO::FETCH_ASSOC);
         try {
             $sql = "INSERT INTO appointments (slot_id, student_id, staff_id, booked) VALUES (?, ?, ?, NOW())";
-            $pdo->prepare($sql)
-                ->execute([$slotId, $studentEmail, $slotData['staff_id']]);
+            $pdo->prepare($sql) -> execute([$slotId, $studentEmail, $slotData['staff_id']]);
             $sql = "UPDATE slots SET is_booked = 1 WHERE id = ?";
-            $pdo->prepare($sql)
-                 ->execute([$slotId]);
+            $pdo->prepare($sql) -> execute([$slotId]);
             $pdo->commit();
             $message = "success";
         } catch (Exception $e) {
@@ -50,10 +48,10 @@ if (isset($_GET['cancel'])) {
     $slotId = (int)$_GET['cancel'];
     $pdo->beginTransaction();
     try {
-        $pdo->prepare("DELETE FROM appointments WHERE slot_id = ? AND student_id = ?")
-            ->execute([$slotId, $userEmail]);
-        $pdo->prepare("UPDATE slots SET is_booked = 0 WHERE id = ?")
-            ->execute([$slotId]);
+        $pdo->prepare("DELETE FROM appointments WHERE slot_id = ? AND student_id = ?");
+        $pdo->execute([$slotId, $userEmail]);
+        $pdo->prepare("UPDATE slots SET is_booked = 0 WHERE id = ?");
+        $pdo->execute([$slotId]);
         $pdo->commit();
     } catch (Exception $e) {
         $pdo->rollBack();

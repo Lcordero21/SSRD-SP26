@@ -1,5 +1,4 @@
 <!-- NEED TO ADD SESSION VERIFICATION -->
-<?php?>
 
 <?php
 session_start();
@@ -86,8 +85,8 @@ require_once 'connect_db.php';
               <th scope="col">Time</th>
               <th scope="col">Student Name</th>
               <th scope="col">Notes</th>
-              <th scope="col">Edit Note</th>
-              <th scope="col">Cancel</th>
+              <!-- <th scope="col">Edit Note</th>
+              <th scope="col">Cancel</th> -->
             </tr>
           </thead>
           <tbody>
@@ -99,9 +98,8 @@ require_once 'connect_db.php';
               <td><?=date('g:ia', strtotime($row['start_time'])) ?> - <?= date('g:ia', strtotime($row['end_time'])) ?></td>
               <td><?= htmlspecialchars($row['first']) ?> <?= htmlspecialchars($row['last']) ?></td>
               <td><?= htmlspecialchars($row['description']) ?></td>
-              <!-- Fix the following -->
-              <td><a href="adjust_appointment.php?slot_id=<?= $row['slot_id'] ?>" class="btn btn-outline-primary">Edit Note</a></td>
-              <td><a href="cancel_appointment.php?slot_id=<?= $row['slot_id'] ?>" class="btn btn-outline-danger" onclick="return confirm('Cancel this appointment?')">Cancel</a></td>
+
+              <!-- <td><button name="" id=""  class="btn btn-outline-danger" href="adjust_appointment.php?slot_id=<?= $row['slot_id'] ?>" role="button">Edit Note</button></td> -->
 
             </tr>
             <?php

@@ -79,9 +79,13 @@ if (isset($DUser)&& isset($DPassword)) {
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img class = "compass_logo" src="../images/compass-4c1.jpg"/></a>
-            <ul>
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Student Log In</a>
+                    <a class="nav-link active" aria-current="page" href="#">Student Log-In</a>
                 </li>
             </ul>
         </div>
