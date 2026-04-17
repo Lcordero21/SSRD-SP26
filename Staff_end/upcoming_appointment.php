@@ -9,7 +9,6 @@ if (!isset($_SESSION['user']) || $_SESSION['admin'] == 0) {
 
 $userEmail = $_SESSION['user'];
 $userName = $_SESSION['name'];
-$message = "";
 
 require_once 'connect_db.php';
 
@@ -66,7 +65,7 @@ require_once 'connect_db.php';
 <body>
     <!-- looking at all upcoming appointments -->
     <?php
-    $sql = "SELECT u.first, u.last, s.slot_date, a.staff_id, s.start_time, s.end_time, a.description, u2.first as staff_first, u2.last as staff_last FROM appointments a
+    $sql = "SELECT u.first, u.last, s.id as slot_id, s.slot_date, a.staff_id, a.student_id, s.start_time, s.end_time, a.description, u2.first as staff_first, u2.last as staff_last FROM appointments a
             JOIN users u ON a.student_id = u.email
             JOIN slots s ON a.slot_id = s.id
             JOIN users u2 ON a.staff_id = u2.email
@@ -85,8 +84,8 @@ require_once 'connect_db.php';
               <th scope="col">Time</th>
               <th scope="col">Student Name</th>
               <th scope="col">Notes</th>
-              <!-- <th scope="col">Edit Note</th>
-              <th scope="col">Cancel</th> -->
+              <th scope="col">Edit Note</th>
+              <th scope="col">Cancel</th> 
             </tr>
           </thead>
           <tbody>
@@ -98,8 +97,21 @@ require_once 'connect_db.php';
               <td><?=date('g:ia', strtotime($row['start_time'])) ?> - <?= date('g:ia', strtotime($row['end_time'])) ?></td>
               <td><?= htmlspecialchars($row['first']) ?> <?= htmlspecialchars($row['last']) ?></td>
               <td><?= htmlspecialchars($row['description']) ?></td>
-
-              <!-- <td><button name="" id=""  class="btn btn-outline-danger" href="adjust_appointment.php?slot_id=<?= $row['slot_id'] ?>" role="button">Edit Note</button></td> -->
+              <td>
+                <form method="POST" action="adjust_appointment.php">
+                  <input type="hidden" name="slot_id" value="<?= $row['slot_id'] ?>">
+                  <input type="text" class="form-control" name="description" 
+                        value="<?= htmlspecialchars($row['description'] ?? '') ?>">
+                  <button type="submit" class="btn btn-outline-secondary mt-1">Save Note</button>
+                </form>
+              </td>
+              <td>
+                <form method="POST" action="cancel_appointment.php">
+                  <input type="hidden" name="slot_id" value="<?= $row['slot_id'] ?>">
+                  <input type="hidden" name="student_id" value="<?= $row['student_id']?>">
+                  <button type="submit" class="btn btn-outline-danger">Cancel</button>
+                </form>
+              </td>
 
             </tr>
             <?php
@@ -108,4 +120,5 @@ require_once 'connect_db.php';
           </tbody>
         </table>
       </div> 
+
 </body>

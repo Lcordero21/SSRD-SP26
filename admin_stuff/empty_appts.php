@@ -15,10 +15,11 @@ for ($i = 1; $i < $daysAhead; $i++) {
     $date = date('Y-m-d', strtotime("+$i days"));
     $dayOfWeek = date('N', strtotime($date)); // 1=Mon, 7=Sun
 
-    if ($dayOfWeek >= 6) continue;
+    if ($dayOfWeek >= 6) continue; //skips weekends
 
     //creates a slot for each hour, excluding the lunch break (at 12pm)
     for ($hour = $startHour; $hour < $endHour; $hour++) {
+        if ($hour == 12) continue; //skips lunch break
         $startTime = sprintf('%02d:00:00', $hour);
         $endTime   = sprintf('%02d:00:00', $hour + 1);
 

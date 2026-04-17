@@ -1,0 +1,13 @@
+A lot of the work that copilot and claude did was debugging. I would copy and paste 
+my entire code in claude and utlize the built-in copilot and ask them to find any bugs. I would then go 
+through the code and fix the bugs that they found. I would also ask them to explain 
+any bugs that I didn't understand. This helped me to learn how to debug my code 
+and to understand the logic behind it.  
+
+There were a couple of times that I was stuck on how to approach designing a page, so I would ask 
+claude for suggestions on how to go about coding/structuring the page (specifying that I didn't want 
+to see any code, just suggestions). Other times, I did ask for example code snippets to help me understand
+how to implement a certain feature. These two were especially helpful when I was trying to figure out how to
+implement the booking page, since I have never done anything like that before.
+
+
