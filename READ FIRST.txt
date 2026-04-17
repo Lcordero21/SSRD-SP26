@@ -1,1 +1,14 @@
-[include user password and usernames for Agbo, to run the admin page first, then the homepage]
+
+
+Prior to launching the applications, two things must be done (in this order):
+
+1. Within the phpMyAdmin, the entire "backend.sql" query must be ran in order to make the tables
+2. Then, to make all the empty slots, the "empty_appts.php" must be ran 
+
+Once these are completed you can access either "homepage.php" and begin using the application!
+Below are the respective test log-ins:
+
+Staff end- User: "admin@willamette.edu" Password: "password"
+Student end- User: "john.doe@willamette.edu" Password: "password"
+
+
